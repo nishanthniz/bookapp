@@ -1,0 +1,64 @@
+<div class="container h-100">
+    <div class="row align-items-center h-100">
+        <div class="col-md-4 offset-md-4 mx-auto">
+            <div class="card h-100 border-0 p-4 bg-light justify-content-center">
+                <h4>Register</h4>
+                <form [formGroup]="registerationForm">
+                    <div class="form-group">
+                        <label for="FullName" class="form-label">Full Name<sup class="v-required-sup">*</sup></label>
+                        <input type="text" placeholder="Enter Full Name" maxlength="50" formControlName="FullName"
+                            id="FullName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="UserName" class="form-label">Username<sup class="v-required-sup">*</sup></label>
+                        <input type="text" placeholder="Enter Username" maxlength="50" formControlName="UserName"
+                            id="UserName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="EmailID" class="form-label">Email Address<sup class="v-required-sup">*</sup></label>
+                        <input type="email" placeholder="Enter Email Address" maxlength="50" formControlName="EmailID"
+                            id="EmailID" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="MobileNo" class="form-label">Mobile No<sup class="v-required-sup">*</sup></label>
+                        <input type="tel" placeholder="Enter Mobile Number" maxlength="12" minlength="12"
+                            formControlName="MobileNo" id="MobileNo" class="form-control">
+                    </div>
+                    <div formGroupName="PasswordGroup">
+                        <div class="form-group">
+                            <label for="Password" class="form-label">Password<sup class="v-required-sup">*</sup></label>
+                            <input type="password" placeholder="Enter Password" minlength="6" maxlength="40"
+                                formControlName="Password" id="Password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="ConfirmPassword" class="form-label">Confirm Password<sup
+                                    class="v-required-sup">*</sup></label>
+                            <input type="email" placeholder="Enter Confirm Password" minlength="6" maxlength="40"
+                                formControlName="ConfirmPassword" id="ConfirmPassword" class="form-control">
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="form-group">
+                                    <div id="password_strength"></div>
+                                    <div class="progress">
+                                        <div class="pwd-progress-bar"
+                                            [ngClass]="{'bg-success': strengthSuccess , 'bg-warning': strengthMedium, 'bg-danger': strengthWeak }">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="pr-1">
+                                <button type="button" class="btn btn-secondary btn-semi-circle">Clear</button>
+                            </div>
+                            <div class="pl-1">
+                                <button type="submit" class="btn btn-success btn-semi-circle" [disabled]="true">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

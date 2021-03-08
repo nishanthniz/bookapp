@@ -1,0 +1,19 @@
+{
+  "name": "test-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "gm": "^1.23.1",
+    "joi": "^17.4.0",
+    "mongoose": "^5.11.17"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node app.js",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
