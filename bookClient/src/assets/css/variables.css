@@ -1,0 +1,44 @@
+/* CSS VARIABLES */
+/**
+    @VARIABLES FOR: COLORS
+    @PRIMARY COLORS: primary-one = midnight, primary-two = ocean, pimary-three-tan
+**/
+
+:root {
+    --color-primary: #303b47;
+    --color-secondary: linear-gradient(to bottom, #489ed3, #3786b5) !important;
+    --color-tertiary: #489ed3;
+    --color-primary-high: #0057b2;
+    --color-primary-medium: #12559b;
+    --color-primary-light: #50d4b7;
+    --color-primary-dim: #8bc4c6;
+    --color-secondary-high: #23527c;
+    --color-secondary-medium: #1f88bb;
+    --color-secondary-light: #c8edff;
+    --color-secondary-dim: #486f99;
+    --color-tertiary-high: #e8ae4a;
+    --color-tertiary-medium: #ffaa19;
+    --color-tertiary-light: #ffa100;
+    --color-tertiary-dim: #ffc96b;
+    --color-font: #313b45;
+    --color-font-light: #a7a7b4;
+    --color-link: #227eb3;
+    --color-white: #fff;
+    --color-border: #dedede;
+    --color-black: #000;
+    /* Override bootstrap variables */
+    --primary: #005286;
+    --secondary: #303b47;
+    --danger: #b50202;
+    --success: #266b09;
+    /* color shades */
+    --colors: ( primary: ( high: #0057b2, medium: #12559b, light: #50d4b7, dim: #8bc4c6, ), secondary: ( high: #0e78bd, medium: #007cff, light: #4a97e8, dim: #486f99, ), tertiary: ( high: #e8ae4a, medium: #ffaa19, light: #ffa100, dim: #ffc96b, ), );
+    /**
+    @VARIABLES FOR: FONTS
+    **/
+    --font-size-default: 1.6rem;
+    --color-primary: #303b47;
+    --color-secondary: #005286;
+    --color-tertiary: #3786b5;
+    --color-danger: #b50202;
+}

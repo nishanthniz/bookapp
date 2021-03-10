@@ -1,0 +1,11 @@
+.v-required-sup {
+    font-size: 1.3rem;
+    color: var(--danger);
+    top: 0;
+}
+
+.v-error {
+    color: var(--danger);
+    font-size: 12px;
+    margin-bottom: 0;
+}
