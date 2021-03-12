@@ -1,4 +1,4 @@
-<div class="container h-100">
+<section class="container h-100">
     <div class="row align-items-center h-100">
         <div class="col-md-4 offset-md-4">
             <div class="card h-100 border-0 p-4 bg-light justify-content-center">
@@ -43,7 +43,8 @@
                             <label for="Password" class="form-label">Password<sup class="v-required-sup">*</sup></label>
                             <input type="password" placeholder="Enter Password" minlength="6" maxlength="40"
                                 formControlName="Password" id="Password" class="form-control"
-                                (ngModelChange)="checkPasswordStrength(passwordControls.Password.value)" autocomplete="new-password">
+                                (ngModelChange)="checkPasswordStrength(passwordControls.Password.value)"
+                                autocomplete="new-password">
                             <div class="form-feedback"
                                 *ngIf="passwordControls?.Password?.invalid && (passwordControls?.Password.dirty || passwordControls?.Password?.touched)">
                                 <p class="mt-2 v-error" *ngIf="passwordControls?.Password?.errors?.required">Required
@@ -59,7 +60,8 @@
                             <label for="ConfirmPassword" class="form-label">Confirm Password<sup
                                     class="v-required-sup">*</sup></label>
                             <input type="password" placeholder="Enter Confirm Password" minlength="6" maxlength="40"
-                                formControlName="ConfirmPassword" id="ConfirmPassword" class="form-control" autocomplete="new-password">
+                                formControlName="ConfirmPassword" id="ConfirmPassword" class="form-control"
+                                autocomplete="new-password">
                             <div class="form-feedback"
                                 *ngIf="passwordControls?.ConfirmPassword?.invalid && (passwordControls?.ConfirmPassword.dirty || passwordControls?.ConfirmPassword?.touched)">
                                 <p class="mt-2 v-error" *ngIf="passwordControls?.ConfirmPassword?.errors?.required">
@@ -101,4 +103,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>
