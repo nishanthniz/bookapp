@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
+import { HttpHelperService } from "../service/http-helper.service";
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ export class RegisterComponent implements OnInit {
   strengthSuccess: Boolean = false;
   strengthMedium: Boolean = false;
   strengthWeak: Boolean = true;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpHelperService) { }
 
   ngOnInit(): void {
     this.createRegisterationForm();
