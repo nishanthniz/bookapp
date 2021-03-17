@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
 import { HttpHelperService } from "../service/http-helper.service";
-
+declare var $: any;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,7 +12,9 @@ export class RegisterComponent implements OnInit {
   strengthSuccess: Boolean = false;
   strengthMedium: Boolean = false;
   strengthWeak: Boolean = true;
-  constructor(private fb: FormBuilder, private http: HttpHelperService) { }
+  regPopupMsg: string = "";
+  constructor(private fb: FormBuilder,
+    private http: HttpHelperService) { }
 
   ngOnInit(): void {
     this.createRegisterationForm();
@@ -30,6 +32,34 @@ export class RegisterComponent implements OnInit {
         validator: this.MatchBothPasswords
       })
     });
+  }
+
+  addUser() {
+    let reqData: any = { ...this.registerationForm.getRawValue() };
+    reqData.process = "create_user";
+    this.http.httpPost('/userRegisteration', reqData, {}).subscribe((res: any) => {
+      console.log("User Registeration Response", res);
+      if (res.status === "SUCCESS") {
+        this.regPopupMsg = res.message;
+      } else {
+        this.regPopupMsg = "Something went wrong. User not registered";
+      }
+      this.showModalDialog('registerationDialog');
+    });
+  }
+
+  validateUser(ctrlName, ctrlValue) {
+    let reqData = { process: `validate_${ctrlName}` };
+    reqData[ctrlName] = ctrlValue;
+    this.http.httpPost('/userRegisteration', reqData, {}).subscribe((res: any) => {
+      if (res.status === "SUCCESS") {
+        if (res.data.length > 0) {
+          this.RegFormControls[ctrlName].setErrors({ duplicateFound: true });
+        }
+      } else {
+        console.log("Something went wrong");
+      }
+    })
   }
 
   MatchBothPasswords(AC: AbstractControl) {
@@ -106,6 +136,14 @@ export class RegisterComponent implements OnInit {
     }
     password_strength_ele.innerHTML = strength;
     password_strength_ele.style.color = color;
+  }
+
+  showModalDialog(dialogModalID) {
+    $(`#${dialogModalID}`).modal('show');
+  }
+
+  hideModalDialog(dialogModalID) {
+    $(`#${dialogModalID}`).modal('hide');
   }
 
   get RegFormControls(): any {

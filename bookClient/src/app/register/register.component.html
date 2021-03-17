@@ -12,25 +12,31 @@
                     <div class="form-group">
                         <label for="UserName" class="form-label">Username<sup class="v-required-sup">*</sup></label>
                         <input type="text" placeholder="Enter Username" maxlength="50" formControlName="UserName"
-                            id="UserName" class="form-control" autocomplete="off">
+                            id="UserName" class="form-control" autocomplete="off"
+                            (ngModelChange)="validateUser('UserName', RegFormControls.UserName.value)">
                         <div class="form-feedback"
                             *ngIf="RegFormControls?.UserName?.invalid && (RegFormControls?.UserName.dirty || RegFormControls?.UserName?.touched)">
                             <p class="mt-2 v-error" *ngIf="RegFormControls?.UserName?.errors?.required">Required</p>
                             <p class="mt-2 v-error" *ngIf="RegFormControls?.UserName?.errors?.pattern">Username should
                                 not
                                 contain spaces and special characters</p>
+                            <p class="mt-2 v-error" *ngIf="RegFormControls?.UserName?.errors?.duplicateFound">Username
+                                already exists</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="EmailID" class="form-label">Email Address<sup class="v-required-sup">*</sup></label>
                         <input type="email" placeholder="Enter Email Address" maxlength="50" formControlName="EmailID"
-                            id="EmailID" class="form-control" autocomplete="off">
-                        <div class="form-feedback"
+                            id="EmailID" class="form-control" autocomplete="off"
+                            (ngModelChange)="validateUser('EmailID', RegFormControls.EmailID.value)">
+                        <div class=" form-feedback"
                             *ngIf="RegFormControls?.EmailID?.invalid && (RegFormControls?.EmailID.dirty || RegFormControls?.EmailID?.touched)">
                             <p class="mt-2 v-error" *ngIf="RegFormControls?.EmailID?.errors?.required">Required</p>
                             <p class="mt-2 v-error" *ngIf="RegFormControls?.EmailID?.errors?.pattern">This is not an
                                 email
                                 address</p>
+                            <p class="mt-2 v-error" *ngIf="RegFormControls?.EmailID?.errors?.duplicateFound">Email Address
+                                already exists</p>
                         </div>
                     </div>
                     <!-- <div class="form-group">
@@ -95,7 +101,7 @@
                             </div>
                             <div class="pl-1">
                                 <button type="submit" class="btn btn-success btn-semi-circle"
-                                    [disabled]="!registerationForm.valid">Submit</button>
+                                    [disabled]="!registerationForm.valid" (click)="addUser()">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -104,3 +110,8 @@
         </div>
     </div>
 </section>
+
+<app-dialog-popup [popupHeader]="'Information'" [popupModalId]="'registerationDialog'" [popupMessage]="regPopupMsg"
+    [popupSuccessBtn]="'Ok'" (sucessEvt)="hideModalDialog('registerationDialog')"
+    (failureEvt)="hideModalDialog('registerationDialog')">
+</app-dialog-popup>

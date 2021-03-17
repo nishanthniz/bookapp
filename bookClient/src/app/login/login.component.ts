@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-
+import { HttpHelperService } from "../service/http-helper.service";
+declare var $: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,7 +9,10 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  loginAlertMsg: string = '';
+  loginPopupMsg: string = '';
+  constructor(private fb: FormBuilder,
+    public http: HttpHelperService) { }
 
   ngOnInit(): void {
     this.createLoginForm();
@@ -18,6 +22,34 @@ export class LoginComponent implements OnInit {
       EmailID: ['', [Validators.required, Validators.pattern(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,10})$/)]],
       Password: ['', Validators.required]
     });
+  }
+
+  userLogin() {
+    let reqData: any = { ...this.loginForm.getRawValue() };
+    this.http.httpPost('/userLogin', reqData, {}).subscribe((res: any) => {
+      console.log("Login Response", res);
+      if (res.status === "SUCCESS") {
+        this.loginAlertMsg = "";
+        this.loginPopupMsg = res.message;
+      } else {
+        if (res.custom_error) {
+          this.loginAlertMsg = res.message;
+        } else {
+          this.loginPopupMsg = "Something went wrong. Login Failed."
+        }
+      }
+      if (!this.loginAlertMsg) {
+        this.showModalDialog('loginDialog');
+      }
+    });
+  }
+
+  showModalDialog(dialogModalID) {
+    $(`#${dialogModalID}`).modal('show');
+  }
+
+  hideModalDialog(dialogModalID) {
+    $(`#${dialogModalID}`).modal('hide');
   }
 
   get loginFormControls() {

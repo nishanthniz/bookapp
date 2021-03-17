@@ -6,6 +6,8 @@ let app = express();
 
 // Routes
 let bookOperations = require('./routes/bookOperations');
+let userOperations = require('./routes/userRegisteration');
+let userLogin = require('./routes/userLogin');
 
 // View Engine
 app.set('views', path.join(__dirname, "views"));
@@ -24,6 +26,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/bookOperations', bookOperations);
+app.use('/userRegisteration', userOperations);
+app.use('/userLogin', userLogin);
 
 app.listen(3000, () => {
     console.log("Server listening on 3000");

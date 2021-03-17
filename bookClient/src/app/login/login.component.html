@@ -26,12 +26,21 @@
                                 password</p>
                         </div>
                     </div>
+                    <div *ngIf="loginAlertMsg" class="row">
+                        <div class="col-12 col-md-5">
+                            <p class="v-error">{{loginAlertMsg}}</p>
+                        </div>
+                    </div>
                     <div class="d-flex justify-content-end">
                         <button type="submit" class="btn btn-success btn-semi-circle"
-                            [disabled]="!loginForm.valid">Login</button>
+                            [disabled]="!loginForm.valid" (click)="userLogin()">Login</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </section>
+
+<app-dialog-popup [popupHeader]="'Information'" [popupModalId]="'loginDialog'" [popupMessage]="loginPopupMsg"
+    [popupSuccessBtn]="'Ok'" (sucessEvt)="hideModalDialog('loginDialog')" (failureEvt)="hideModalDialog('loginDialog')">
+</app-dialog-popup>
