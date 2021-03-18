@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Subject } from "rxjs";
+import { SessionService } from "./session.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpHelperService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public session: SessionService) { }
 
   httpPost(url: string, body: any, options?: any) {
     options.headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6IkFkbWluIiwiQXBwIjoiYWRtaW4iLCJSb2xlIjoiQURNSU4iLCJzZXNzaW9uSUQiOiJTRVNTSU9OLWNhY2YxMDdlLWRiZTktNDBjNi04Njk0LTEwZDM3ZmVhZmJlOSIsImlhdCI6MTU5NzgzMTM3OCwiZXhwIjoxNTk3OTE3Nzc4fQ.JQ4h2Bw0nOqcmKWUXUjywlzljMQtSj9VrNwIxzkGmeY'
+      'Authorization': `Bearer ${this.session.getAccessToken()}`
     });
     let reqBody: any = { data: body };
     url = `http://localhost:3000${url}`;

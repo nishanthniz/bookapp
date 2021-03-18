@@ -2,13 +2,14 @@ let path = require("path")
 let express = require("express");
 let bodyParser = require("body-parser");
 let cookieParser = require("cookie-parser");
+require('dotenv').config();
 let app = express();
 
 // Routes
 let bookOperations = require('./routes/bookOperations');
 let userOperations = require('./routes/userRegisteration');
 let userLogin = require('./routes/userLogin');
-
+let port = process.env.PORT || 3000;
 // View Engine
 app.set('views', path.join(__dirname, "views"));
 app.set('view engine', 'jade');
@@ -29,6 +30,6 @@ app.use('/bookOperations', bookOperations);
 app.use('/userRegisteration', userOperations);
 app.use('/userLogin', userLogin);
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("Server listening on 3000");
 });

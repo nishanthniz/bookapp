@@ -5,6 +5,7 @@ const {
     v4: uuidv4
 } = require('uuid');
 const mongoInstance = require('../instances/mongoinstance');
+const auth = require('../middleware/auth');
 
 let objResponse = {
     "status": "FAILURE",
@@ -103,6 +104,8 @@ function fn_ExecuteUserProcess(inputParams) {
                         if (insErr) {
                             reject(insErr);
                         } else {
+                            let jwtToken = auth.generateJWT(newUser.Id);
+                            objResponse.jwtToken = jwtToken;
                             resolve("User has been registered successfully!");
                         }
                     } catch (error) {

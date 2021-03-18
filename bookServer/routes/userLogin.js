@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
 const mongoInstance = require('../instances/mongoinstance');
+const auth = require('../middleware/auth');
 
 let objResponse = {
     "status": "FAILURE",
@@ -46,7 +47,9 @@ function fn_UserLogin(inputParams) {
                     if (fetchRes.length > 0) {
                         let hashPassword = crypto.pbkdf2Sync(inputParams.Password, fetchRes[0].Salt, 1000, 16, 'sha512').toString('hex');
                         if (fetchRes[0].Password.toString() === hashPassword.toString()) {
+                            let jwtToken = auth.generateJWT(fetchRes[0].Id);
                             objResponse.data = fetchRes;
+                            objResponse.jwtToken = jwtToken;
                             objResponse.custom_error = false;
                             resolve("User logged in successfully");
                         } else {

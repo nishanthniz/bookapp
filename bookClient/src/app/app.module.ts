@@ -16,6 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { DialogPopupComponent } from './dialog-popup/dialog-popup.component';
 import { HttpHelperService } from './service/http-helper.service';
+import { LoaderComponent } from './loader/loader.component';
+import { AuthGuardService } from './service/auth-guard.service';
+import { SessionService } from './service/session.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { HttpHelperService } from './service/http-helper.service';
     RegisterComponent,
     BookListComponent,
     HeaderComponent,
-    DialogPopupComponent
+    DialogPopupComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,7 @@ import { HttpHelperService } from './service/http-helper.service';
     MatDialogModule,
     MatButtonModule
   ],
-  providers: [HttpHelperService],
+  providers: [HttpHelperService, AuthGuardService, SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

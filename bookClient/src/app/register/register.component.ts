@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
 import { HttpHelperService } from "../service/http-helper.service";
+import { SessionService } from "../service/session.service";
 declare var $: any;
 @Component({
   selector: 'app-register',
@@ -9,14 +10,17 @@ declare var $: any;
 })
 export class RegisterComponent implements OnInit {
   registerationForm: FormGroup;
+  showLoader: boolean = false;
   strengthSuccess: Boolean = false;
   strengthMedium: Boolean = false;
   strengthWeak: Boolean = true;
   regPopupMsg: string = "";
   constructor(private fb: FormBuilder,
-    private http: HttpHelperService) { }
+    private http: HttpHelperService,
+    public session: SessionService) { }
 
   ngOnInit(): void {
+    this.session.setAccessToken("");
     this.createRegisterationForm();
   }
   createRegisterationForm() {
@@ -37,9 +41,12 @@ export class RegisterComponent implements OnInit {
   addUser() {
     let reqData: any = { ...this.registerationForm.getRawValue() };
     reqData.process = "create_user";
+    this.showLoader = true;
     this.http.httpPost('/userRegisteration', reqData, {}).subscribe((res: any) => {
       console.log("User Registeration Response", res);
+      this.showLoader = false;
       if (res.status === "SUCCESS") {
+        this.session.setAccessToken(res.jwtToken);
         this.regPopupMsg = res.message;
       } else {
         this.regPopupMsg = "Something went wrong. User not registered";

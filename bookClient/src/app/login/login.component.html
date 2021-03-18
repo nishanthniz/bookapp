@@ -44,3 +44,5 @@
 <app-dialog-popup [popupHeader]="'Information'" [popupModalId]="'loginDialog'" [popupMessage]="loginPopupMsg"
     [popupSuccessBtn]="'Ok'" (sucessEvt)="hideModalDialog('loginDialog')" (failureEvt)="hideModalDialog('loginDialog')">
 </app-dialog-popup>
+
+<app-loader [showLoader]="showLoader"></app-loader>

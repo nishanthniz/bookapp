@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { HttpHelperService } from "../service/http-helper.service";
+import { SessionService } from "../service/session.service";
 declare var $: any;
 @Component({
   selector: 'app-login',
@@ -9,12 +11,16 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  showLoader: boolean = false;
   loginAlertMsg: string = '';
   loginPopupMsg: string = '';
   constructor(private fb: FormBuilder,
-    public http: HttpHelperService) { }
+    public router: Router,
+    public http: HttpHelperService,
+    public session: SessionService) { }
 
   ngOnInit(): void {
+    this.session.setAccessToken("");
     this.createLoginForm();
   }
   createLoginForm() {
@@ -26,20 +32,21 @@ export class LoginComponent implements OnInit {
 
   userLogin() {
     let reqData: any = { ...this.loginForm.getRawValue() };
+    this.showLoader = true;
     this.http.httpPost('/userLogin', reqData, {}).subscribe((res: any) => {
       console.log("Login Response", res);
+      this.showLoader = false;
       if (res.status === "SUCCESS") {
+        this.session.setAccessToken(res.jwtToken);
         this.loginAlertMsg = "";
-        this.loginPopupMsg = res.message;
+        this.router.navigate(['booklists']);
       } else {
         if (res.custom_error) {
           this.loginAlertMsg = res.message;
         } else {
           this.loginPopupMsg = "Something went wrong. Login Failed."
+          this.showModalDialog('loginDialog');
         }
-      }
-      if (!this.loginAlertMsg) {
-        this.showModalDialog('loginDialog');
       }
     });
   }
