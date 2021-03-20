@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     public session: SessionService) { }
 
   ngOnInit(): void {
-    this.session.setAccessToken("");
+    this.session.access_token = "";
     this.createLoginForm();
   }
   createLoginForm() {
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       console.log("Login Response", res);
       this.showLoader = false;
       if (res.status === "SUCCESS") {
-        this.session.setAccessToken(res.jwtToken);
+        this.session.access_token = res.jwtToken;
         this.loginAlertMsg = "";
         this.router.navigate(['booklists']);
       } else {

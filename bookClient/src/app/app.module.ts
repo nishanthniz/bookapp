@@ -6,6 +6,8 @@ import { HttpClientModule } from "@angular/common/http";
 // Angular Materials
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatIconModule } from "@angular/material/icon";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,12 +40,16 @@ import { SessionService } from './service/session.service';
     BrowserAnimationsModule,
     HttpClientModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule
   ],
   exports: [
     HeaderComponent,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [HttpHelperService, AuthGuardService, SessionService],
   bootstrap: [AppComponent]

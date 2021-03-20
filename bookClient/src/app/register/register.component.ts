@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
+import { Router } from "@angular/router";
 import { HttpHelperService } from "../service/http-helper.service";
 import { SessionService } from "../service/session.service";
 declare var $: any;
@@ -16,11 +17,12 @@ export class RegisterComponent implements OnInit {
   strengthWeak: Boolean = true;
   regPopupMsg: string = "";
   constructor(private fb: FormBuilder,
+    public router: Router,
     private http: HttpHelperService,
     public session: SessionService) { }
 
   ngOnInit(): void {
-    this.session.setAccessToken("");
+    this.session.access_token = "";
     this.createRegisterationForm();
   }
   createRegisterationForm() {
@@ -46,12 +48,12 @@ export class RegisterComponent implements OnInit {
       console.log("User Registeration Response", res);
       this.showLoader = false;
       if (res.status === "SUCCESS") {
-        this.session.setAccessToken(res.jwtToken);
-        this.regPopupMsg = res.message;
+        this.session.access_token = res.jwtToken;
+        this.router.navigate(['booklists']);
       } else {
         this.regPopupMsg = "Something went wrong. User not registered";
+        this.showModalDialog('registerationDialog');
       }
-      this.showModalDialog('registerationDialog');
     });
   }
 

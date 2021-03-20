@@ -1,16 +1,51 @@
 <header class="main-header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">BookApp</span>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1"> <img src="../../assets/images/android-chrome-192x192.png" width="24px"
+                height="24px"> BookApp</span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="mr-auto"></div>
-            <div class="my-2 my-lg-0">
-                <button class="btn btn-success my-2 btn-semi-circle mr-1" routerLink="/login">Login</button>
-                <button class="btn btn-outline-success my-2 btn-semi-circle ml-1" routerLink="/register">Register</button>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" role="button" [matMenuTriggerFor]="menu" *ngIf="session.access_token">
+                    <a class="nav-link text-white">Categories <i class="fa fa-caret-down ml-1"
+                            aria-hidden="true"></i></a>
+                </li>
+                <mat-menu #menu="matMenu">
+                    <li mat-menu-item>Education</li>
+                    <li mat-menu-item>Business</li>
+                    <li mat-menu-item>History</li>
+                    <li mat-menu-item>Stories</li>
+                    <li mat-menu-item>Personal Development</li>
+                </mat-menu>
+            </ul>
+            <div class="m-0" style="width: 75%;">
+                <form class="d-flex" *ngIf="session.access_token">
+                    <input type="search" class="form-control" placeholder="Search Books..." aria-label="Search">
+                    <button class="btn btn-success ml-1" style="width: 19%;" type="submit"><i class="fa fa-search mr-1"
+                            aria-hidden="true"></i> Search Books</button>
+                </form>
             </div>
+            <ul class="navbar-nav navbar-right ml-1">
+                <li class="nav-item mr-1 ml-1" *ngIf="!session.access_token">
+                    <a routerLink="/register" class="nav-link text-white"><i class="fa fa-user-plus mr-1"
+                            aria-hidden="true"></i>
+                        Register</a>
+                </li>
+                <li class="nav-item ml-1" *ngIf="!session.access_token">
+                    <a routerLink="/login" class="nav-link text-white"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i> Login</a>
+                </li>
+                <li class="nav-item mr-1 ml-1" *ngIf="session.access_token">
+                    <a class="nav-link text-white" routerLink="/"><i class="fa fa-upload mr-1" aria-hidden="true"></i>
+                        Upload</a>
+                </li>
+                <li class="nav-item" *ngIf="session.access_token">
+                    <a routerLink="/login" class="nav-link text-white"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Logout</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>

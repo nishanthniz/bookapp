@@ -12,7 +12,7 @@ export class HttpHelperService {
   httpPost(url: string, body: any, options?: any) {
     options.headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.session.getAccessToken()}`
+      'Authorization': `Bearer ${this.session.access_token}`
     });
     let reqBody: any = { data: body };
     url = `http://localhost:3000${url}`;
